@@ -47,8 +47,8 @@ Variables Scope
 
 - Note: Scope can be overriden by setting `CACHE`, `PARENT_SCOPE` or other options throughout the code.
 
-Common Operations
-*****************
+Common Control Structures
+*************************
 
 +--------------------------------------------+--------------------------------------+
 | Operation                                  | Syntax Example                       |
@@ -90,3 +90,53 @@ Common Operations
 ||                                           || `<commands>`                        |
 ||                                           || `endmacro()`                        |
 +--------------------------------------------+--------------------------------------+
+
+Defining a project
+******************
+
+- Declare a project with: `cmake_minimum_required(VERSION 3.17 <or other version>)`.
+- Have a `project()` funct call with:`
+        `project(<PROJECT-NAME>`
+            `[VERSION <major>[.<minor>[.<patch>[.<weak>]]]]`
+            `[DESCRIPTION <project-description-string>]`
+            `[HOMEPAGE_URL <url-string>]`
+            `[LANGUAGES <language-name>...]`
+            `)`.
+- Add Source Files to a target using `target_sources()`.
+- Add Header Files to a target using `target_include_directories()`.
+- (Optional) Define a target through `add_executable()`.
+- (Optional) Add libraries using `add_library()`.
+
+Common Functions
+****************
+
++---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| Name                                                                                                          | Purpose                                                             |
++===============================================================================================================+=====================================================================+
+| `list() <https://cmake.org/cmake/help/latest/command/list.html>`_                                             | Simplify operations on list variables                               |
++---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| `string() <https://cmake.org/cmake/help/latest/command/string.html>`_                                         | Perform string operations on a variable                             |
++---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| `math() <https://cmake.org/cmake/help/latest/command/math.html>`_                                             | Perform math operations on a variable                               |
++---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| `add_executable() <https://cmake.org/cmake/help/latest/command/add_executable.html>`_                         | Adds an executable to the project using the specified source files. |
++---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| `add_library() <https://cmake.org/cmake/help/latest/command/add_library.html>`_                               | Adds a library target to be built from the source files listed.     |
++---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| `target_sources() <https://cmake.org/cmake/help/latest/command/target_sources.html>`_                         | Specifies sources when building a target                            |
++---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| `target_include_directories() <https://cmake.org/cmake/help/latest/command/target_include_directories.html>`_ | Specifies include directories when building a target                |
++---------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+
+Target Operations Scope
+***********************
+
++-------------+-------------------------------------------------------------------------------------+
+| Keyword     | Scope                                                                               |
++=============+=====================================================================================+
+| `PRIVATE`   | Relevant only when building for the specified target (not when used as dependency). |
++-------------+-------------------------------------------------------------------------------------+
+| `INTERFACE` | Relevant only when using target as dependency.                                      |
++-------------+-------------------------------------------------------------------------------------+
+| `PUBLIC`    | Relevant for building target and using as dependency.                               |
++-------------+-------------------------------------------------------------------------------------+
