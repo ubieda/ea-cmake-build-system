@@ -10,8 +10,8 @@ https://embeddedartistry.com/course/creating-a-cross-platform-build-system-for-e
 
 - Getting Started: Creating a Cross-Platform Build System (Completed).
 - Build System Concepts and Goals (Completed).
-- CMake: An Introduction (In progress).
-- CMake: Dependencies.
+- CMake: An Introduction (Completed).
+- CMake: Dependencies (In progress).
 - CMake: Build Configuration.
 - CMake: Cross-Compilation.
 - CMake: Supporting Multiple Toolchains and OSes.

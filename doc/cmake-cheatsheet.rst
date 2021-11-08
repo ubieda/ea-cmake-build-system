@@ -94,6 +94,7 @@ Common Control Structures
 Defining a project
 ******************
 
+- Make sure CMAKE_GENERATOR=Ninja environment variable is set.
 - Declare a project with: `cmake_minimum_required(VERSION 3.17 <or other version>)`.
 - Have a `project()` funct call with:`
         `project(<PROJECT-NAME>`
@@ -106,6 +107,12 @@ Defining a project
 - Add Header Files to a target using `target_include_directories()`.
 - (Optional) Define a target through `add_executable()`.
 - (Optional) Add libraries using `add_library()`.
+- Use Toolchain Files to handle cross-compilation and alternate Toolchains.
+- Create a CMakeLists.txt at the project root.
+- Create a build directory and cd to it.
+- Type `cmake ..`
+- Build with the default all target by typing: `make` or `ninja`. 
+- Use `ninja/make help` to list all available target.
 
 Common Functions
 ****************
@@ -131,7 +138,7 @@ Common Functions
 +-----------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
 | `add_compile_options() <https://cmake.org/cmake/help/latest/command/add_compile_options.html#command:add_compile_options>`_ | Sets global compilation flags.                                      |
 +-----------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-| `target_compile_definitions() <https://cmake.org/cmake/help/latest/command/target_compile_definitions.html>`_               | Add compiler definitions                                            |
+| `target_compile_definitions() <https://cmake.org/cmake/help/latest/command/target_compile_definitions.html>`_               | Add compiler definitions (pre-processor)                            |
 +-----------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
 | `target_compile_features() <https://cmake.org/cmake/help/latest/command/target_compile_features.html>`_                     | Set flags related to compilation features.                          |
 +-----------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
