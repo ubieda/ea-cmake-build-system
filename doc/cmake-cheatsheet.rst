@@ -165,3 +165,45 @@ Target Operations Scope
 +-------------+-------------------------------------------------------------------------------------+
 | `PUBLIC`    | Relevant for building target and using as dependency.                               |
 +-------------+-------------------------------------------------------------------------------------+
+
+Modules in CMake
+****************
+
+- Are script files that provide additional build code, variables, targets, functions and others.
+- Have a .cmake extension.
+- Some are build-in, others are custom.
+- To include modules in your build, use `include()`, in the form: `include(<file|module> [OPTIONAL] [RESULT_VARIABLE <var>] [NO_POLICY_SCOPE])`
+- Follows the scope of the caller.
+- Use CMAKE_MODULE_PATH to indicate directories where CMake should look for modules (blank by default).
+
+External Dependency Management
+******************************
+
++---------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| Approach                                                                                    | Description                                                                                     |
++=============================================================================================+=================================================================================================+
+| `FetchContent Module <https://cmake.org/cmake/help/latest/module/FetchContent.html>`_       | - Enables populating content at build configuration time.                                       |
+|                                                                                             | - Add `include(FetchContent)` before using it.                                                  |
+|                                                                                             | - `FetchContent_Declare()` declares the external dependency.                                    |
+|                                                                                             | - `FetchContent_MakeAvailable()` downloads it and adds it.                                      |
+|                                                                                             | - See `FetchContent_GetProperties()` for finer-grain control.                                   |
++---------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| `ExternalProject Module <https://cmake.org/cmake/help/latest/module/ExternalProject.html>`_ | - Populates the content at build-time (as opposed to FetchContent)                              |
+|                                                                                             | - Add `include(ExternalProject)` before using it.                                               |
+|                                                                                             | - `ExternalProject_Add()` downloads it and adds it.                                             |
++---------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| `find_library() <https://cmake.org/cmake/help/latest/command/find_library.html>`_           | - Finds libraries installed on our system.                                                      |
++---------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| `find_package() <https://cmake.org/cmake/help/latest/command/find_package.html>`_           | - Searches for CMake packages installed on our system.                                          |
+|                                                                                             | - Either works in Module or Config modes.                                                       |
++---------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| `FindPkgConfig Module <https://cmake.org/cmake/help/latest/module/FindPkgConfig.html>`_     | - Uses pkg-config to manage dependencies.                                                       |
+|                                                                                             | - Add `include(FindPkfgConfig)` or `find_package (PkgConfig REQUIRED)` before using it.         |
+|                                                                                             | - `pkg_check_modules()` searches for modules with pkg-config.                                   |
++---------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| `CPMAddPackage Module (third-party) <https://github.com/cpm-cmake/CPM.cmake>`_              | - Wrapper around FetchContent and ExternalProject.                                              |
+|                                                                                             | - The two APIs CPM provides are: `CPMAddPackage()` and `CPMFindPackage()`.                      |
+|                                                                                             | - `CPMFindPackage()` tries `find_package()` before trying with `CPMFindPackage()`.              |
+|                                                                                             | - Fetched repository is placed in build_dir/_deps.                                              |
+|                                                                                             | - CPM creates a variable target <name>_SOURCE_DIR referencing the path to the fetched dependency. |
++---------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+

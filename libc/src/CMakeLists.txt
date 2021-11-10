@@ -59,12 +59,18 @@ target_compile_definitions(gdtoa PRIVATE
 
 add_library(c STATIC)
 
-target_include_directories(c PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_include_directories(c PUBLIC ${PROJECT_SOURCE_DIR}/arch/x86_64/include)
+target_include_directories(c PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(c PRIVATE ${PROJECT_SOURCE_DIR}/arch/x86_64/include)
 
-# target_sources(c PRIVATE
-# 	assert/assert.c
-# )
+
+target_include_directories(c SYSTEM INTERFACE ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(c SYSTEM INTERFACE ${PROJECT_SOURCE_DIR}/arch/x86_64/include)
+
+target_include_directories(c SYSTEM INTERFACE $<TARGET_PROPERTY:openlibm,INTERFACE_INCLUDE_DIRECTORIES>)
+
+target_sources(c PRIVATE
+	assert/assert.c
+)
 
 target_sources(c PRIVATE
 	ctype/isalnum.c
@@ -116,21 +122,21 @@ target_sources(c PRIVATE
 	locale/langinfo.c
 )
 
-# target_sources(c PRIVATE
-# 	math/fabs.c
-# 	math/fabsf.c
-# )
+target_sources(c PRIVATE
+	math/fabs.c
+	math/fabsf.c
+)
 
-# target_sources(c PRIVATE
-# 	stdio/asprintf.c
-# 	stdio/putchar.c
-# 	stdio/puts.c
-# 	stdio/vasprintf.c
-# )
+target_sources(c PRIVATE
+	stdio/asprintf.c
+	stdio/putchar.c
+	stdio/puts.c
+	stdio/vasprintf.c
+)
 
-# target_sources(c PRIVATE
-# 	stdio/putchar_native.c
-# )
+target_sources(c PRIVATE
+	stdio/putchar_native.c
+)
 
 target_sources(c PRIVATE
 	support/fls.c
@@ -138,10 +144,10 @@ target_sources(c PRIVATE
 	support/flsll.c
 )
 
-# target_sources(c PRIVATE
-# 	time/asctime.c
-# 	time/asctime_r.c
-# )
+target_sources(c PRIVATE
+	time/asctime.c
+	time/asctime_r.c
+)
 
 target_sources(c PRIVATE
 	string/memcmp.c
@@ -175,3 +181,8 @@ target_sources(c PRIVATE
 	string/strtok.c
 	string/strxfrm.c
 )
+
+# Link External dependencies
+
+target_link_libraries(c PRIVATE printf)
+target_link_libraries(c PRIVATE openlibm)

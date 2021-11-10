@@ -20,3 +20,10 @@ https://embeddedartistry.com/course/creating-a-cross-platform-build-system-for-e
 - CMake: Creating a High-Level Build Interface.
 - Conclusion: Creating a Cross-Platform Build System for Embedded Projects with CMake.
 - The Vault.
+
+### Setup Requirements
+
+- Install CMake: `pip3 install cmake` or `sudo apt-get install cmake`.
+- Install Ninja: `sudo apt install ninja-build`.
+- Install pkg-config: `sudo apt install pkg-config`.
+- Download & Install CPM Module: `mkdir -p libc/cmake && wget -O libc/cmake/CPM.cmake https://github.com/TheLartians/CPM.cmake/releases/latest/download/CPM.cmake`.
