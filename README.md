@@ -27,3 +27,4 @@ https://embeddedartistry.com/course/creating-a-cross-platform-build-system-for-e
 - Install Ninja: `sudo apt install ninja-build`.
 - Install pkg-config: `sudo apt install pkg-config`.
 - Download & Install CPM Module: `mkdir -p libc/cmake && wget -O libc/cmake/CPM.cmake https://github.com/TheLartians/CPM.cmake/releases/latest/download/CPM.cmake`.
+- Download and install CMocka.

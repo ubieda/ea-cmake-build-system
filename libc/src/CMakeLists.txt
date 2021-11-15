@@ -1,10 +1,10 @@
-# Create static library named gdtoa, which handles conversions between strings and floats.
+# Create library named gdtoa, which handles conversions between strings and floats.
 
-add_library(gdtoa STATIC)
+add_library(gdtoa INTERFACE)
 
-target_include_directories(gdtoa PUBLIC gdtoa/include)
+target_include_directories(gdtoa INTERFACE gdtoa/include)
 
-target_sources(gdtoa PRIVATE
+target_sources(gdtoa INTERFACE
 	gdtoa/src/dmisc.c
 	gdtoa/src/dtoa.c
 	gdtoa/src/g__fmt.c
@@ -48,7 +48,7 @@ target_sources(gdtoa PRIVATE
 	gdtoa/src/ulp.c
 )
 
-target_compile_definitions(gdtoa PRIVATE
+target_compile_definitions(gdtoa INTERFACE
 	NO_ERRNO
 	IFNAN_CHECK
 	GDTOA_NO_ASSERT
@@ -186,3 +186,4 @@ target_sources(c PRIVATE
 
 target_link_libraries(c PRIVATE printf)
 target_link_libraries(c PRIVATE openlibm)
+target_link_libraries(c PRIVATE gdtoa)
