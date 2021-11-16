@@ -5,9 +5,7 @@ target_include_directories(libc_tests PRIVATE
     test
 )
 
-if(cmocka_FOUND)
-    target_include_directories(libc_tests SYSTEM PRIVATE ${CMOCKA_INCLUDE_DIR})
-endif()
+target_include_directories(libc_tests SYSTEM PRIVATE ${CMOCKA_INCLUDE_DIR})
 
 target_sources(libc_tests PRIVATE
     main.c
