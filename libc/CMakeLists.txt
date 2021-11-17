@@ -9,6 +9,43 @@ set_property(GLOBAL PROPERTY C_STANDARD 11)
 
 include(cmake/CPM.cmake)
 
+# Set Default configurations if not specified.
+
+set(default_build_type "RelWithDebInfo")
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+        message(STATUS "Setting build type to '${default_build_type}' as none was specified")
+        set(CMAKE_BUILD_TYPE ${default_build_type} CACHE
+                STRING "Choose the type of build"
+                FORCE
+        )
+        set_property(CACHE CMAKE_BUILD_TYPE
+                PROPERTY STRINGS "Debug Release MinSizeRel RelWithDebInfo"
+        )
+endif()
+
+if("${CMAKE_POSITION_INDEPENDENT_CODE}" STREQUAL "")
+        message(STATUS "Setting CMAKE_POSITION_INDEPENDENT_CODE as it is not set")
+        set(CMAKE_POSITION_INDEPENDENT_CODE ON CACHE
+                BOOL "Option to position code independently"
+                FORCE
+        )
+endif()
+
+if("${BUILD_SHARED_LIBS}" STREQUAL "")
+        message(STATUS "Setting BUILD_SHARED_LIBS as it is not set")
+        set(BUILD_SHARED_LIBS OFF CACHE
+                BOOL "Option to enable shared libraries"
+                FORCE
+        )
+endif()
+
+# Set configuration (forced)
+message(STATUS "Setting CMAKE_EXPORT_COMPILE_COMMANDS")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE
+        BOOL "Option to export to commands"
+        FORCE
+)
+
 # Source Files
 add_subdirectory(src)
 

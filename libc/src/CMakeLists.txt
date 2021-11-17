@@ -57,7 +57,8 @@ target_compile_definitions(gdtoa INTERFACE
 
 # Create static libc library
 
-add_library(c STATIC)
+# STATIC keyword not necessary as we're disabling shared libs by default.
+add_library(c)
 
 target_include_directories(c PRIVATE ${PROJECT_SOURCE_DIR}/include)
 target_include_directories(c PRIVATE ${PROJECT_SOURCE_DIR}/arch/x86_64/include)
