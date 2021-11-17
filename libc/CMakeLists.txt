@@ -108,5 +108,15 @@ if(BUILD_TESTING)
         set_target_properties(printf_tests PROPERTIES CXX_STANDARD 11)
         add_test(NAME Printf.Test COMMAND printf_tests -s -r junit -o ${CMAKE_BINARY_DIR}/printf_tests.xml)
 
+        # Re-execute the tests (w/ console output) instead of getting the test information as an xml file.
+        add_custom_target(test-printf printf_tests)
+
+        # Clear XML files every time the build-system is run, such that new results are outputted as XML files.
+        # As CMocka does not overwrite existing XML files.
+        add_custom_target(test-clear-results
+                COMMAND ${CMAKE_COMMAND} -E rm -f ${CMAKE_BINARY_DIR}/test/*.xml
+                COMMENT "Cleaning XML files from test directory"
+        )
+
         add_subdirectory(test)
 endif()

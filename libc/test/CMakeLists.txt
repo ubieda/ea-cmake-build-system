@@ -96,4 +96,18 @@ target_link_libraries(libc_tests PRIVATE ${CMOCKA_LIBRARIES})
 
 add_test(NAME Libc.Test COMMAND libc_tests)
 
-set_tests_properties(Libc.Test PROPERTIES ENVIRONMENT CMOCKA_XML_FILE=${CMAKE_CURRENT_BINARY_DIR}/%g.xml)
+# # Re-execute the tests (w/ console output) instead of getting the test information as an xml file.
+add_custom_target(test-libc
+    COMMAND export CMOCKA_MESSAGE_OUTPUT=stdout
+    COMMAND libc_tests
+)
+
+# Create a dependency so we can then clear the test results every-time they're run.
+add_test(NAME Libc.ClearResults
+    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target test-clear-results
+)
+
+set_tests_properties(Libc.Test PROPERTIES
+    ENVIRONMENT CMOCKA_XML_FILE=${CMAKE_CURRENT_BINARY_DIR}/%g.xml
+    DEPENDS Libc.ClearResults
+)
